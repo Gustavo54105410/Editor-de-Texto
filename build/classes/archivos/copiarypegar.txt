@@ -1,0 +1,22 @@
+Para copiar:
+        String textoSelecionado = areaTexto.getSelectedText();
+        StringSelection stringSelection = new StringSelection(textoSelecionado); 
+        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard(); 
+        clpbrd.setContents(stringSelection, null);
+
+Para pegar:
+        t = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
+        try
+        {
+            // Comprobamos que la información sea de tipo cadena
+            if (t != null && t.isDataFlavorSupported(DataFlavor.stringFlavor))
+            {
+                String text = (String) t.getTransferData(DataFlavor.stringFlavor);
+                String textoEscrito = areaTexto.getText();
+                areaTexto.setText(textoEscrito + text);
+            }
+        }
+        catch (UnsupportedFlavorException | IOException e)
+        {
+            e.printStackTrace();
+        }
